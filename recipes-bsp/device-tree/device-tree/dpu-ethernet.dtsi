@@ -1,0 +1,16 @@
+&gem2 {
+    local-mac-address = [02 c0 f1 d7 fa 31];
+    phy-handle = <&phy0>;
+    mdio {
+      phy0: phy@0 {
+         reg = <0>;
+         vddio-supply = <&vddio>;
+         qca,clk-out-strength = <0>; // FULL
+
+         vddio: vddio-regulator {
+             regulator-min-microvolt = <1800000>;
+             regulator-max-microvolt = <1800000>;
+         };
+      };
+    };
+};

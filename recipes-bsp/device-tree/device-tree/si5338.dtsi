@@ -1,0 +1,22 @@
+/ {
+    si5338_0: si5338_0 {
+        compatible = "fixed-clock";
+        #clock-cells = <0>;
+        clock-frequency = <125000000>;
+    };
+};
+
+
+&psgtr {
+    clocks = <&si5338_0>;
+    clock-names = "ref0";
+    xlnx,tx-termination-fix;
+
+    lane0 {
+        phandle = <0x12>;
+    };
+
+    lane1 {
+        phandle = <0x13>;
+    };
+};

@@ -1,0 +1,11 @@
+&qspi {
+    qspi_flash: flash@0 {
+        compatible = "jedec,spi-nor";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        reg = <0x0>;
+        spi-tx-bus-width = <1>;
+        spi-rx-bus-width = <1>;
+        spi-max-frequency = <10000000>;
+    };
+};
