@@ -38,6 +38,32 @@ function _wait_for_dir_exist_change {
     return 1
 }
 
+function _wait_until_directory_mounted {
+    SSD_ID=$1
+    WAIT_TIME=10
+    EXPECTED_DIR="/mnt/ssd/${SSD_ID}1"
+
+    echo "Waiting for $EXPECTED_DIR to be mounted"
+
+    while [ $WAIT_TIME -gt 0 ]; do
+        ls $EXPECTED_DIR > /dev/null 2>&1
+
+        grep "/dev/" /proc/mounts | grep -qs $EXPECTED_DIR
+        status=$?
+        
+        if [ $status -eq 0 ]; then
+            echo "$EXPECTED_DIR was mounted successfully"
+            return 0
+        fi
+
+        ((WAIT_TIME--))
+        sleep 1
+    done
+
+    echo "Failed to mount $EXPECTED_DIR"
+    exit 1
+}
+
 function _enable_ssd_disk {
     SSD_ID=$1
 
@@ -58,6 +84,7 @@ function _enable_ssd_disk {
     fi
 
     echo "Disk enabled"
+    _wait_until_directory_mounted $SSD_ID
     exit 0
 }
 
@@ -83,6 +110,9 @@ function _disable_ssd_disk {
 
     echo 0 > /sys/class/leds/ssd_$SSD_ID/brightness
     echo "Disk disabled"
+
+    rmdir "/mnt/ssd/${SSD_ID}1"
+
     exit 0
 }
 

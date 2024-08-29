@@ -21,6 +21,10 @@ IMAGE_INSTALL:append = " \
     libgcc \
     libatomic \
     screen \
+    ethtool \
+    i2c-tools \
+    stress-ng \
+    smartmontools \
 "
 
 IMAGE_FSTYPES = "cpio.gz.u-boot ubi tar.gz"
