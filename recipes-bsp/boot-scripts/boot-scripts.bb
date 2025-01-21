@@ -23,7 +23,12 @@ S = "${WORKDIR}"
 
 inherit u-boot-script
 
-TFTP_ROOT ?= "${@'/' + '/'.join('${DEPLOY_DIR_IMAGE}'.split('/')[-6:])}"
+python __anonymous() {
+    if d.getVar("PROJECT_NAME", True) in ["", None]:
+        bb.fatal("PROJECT_NAME is not set, provide it in project configuration file (kas file)")
+}
+
+TFTP_ROOT ?= "${@'/${PROJECT_NAME}/' + '/'.join('${DEPLOY_DIR_IMAGE}'.split('/')[-5:])}"
 
 do_configure:prepend(){
     for script in ${S}/*.cmd; do

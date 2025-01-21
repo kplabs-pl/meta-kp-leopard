@@ -4,3 +4,7 @@ LICENSE = "CLOSED"
 inherit base-leopard-image
 
 IMAGE_FSTYPES:append = " cpio.lzma"
+
+IMAGE_INSTALL:append:leopard-dpu = " \
+    leopard-communication-hub \
+"

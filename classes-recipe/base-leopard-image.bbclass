@@ -9,6 +9,11 @@ DEPENDS += " \
 
 TOOLCHAIN_HOST_TASK += " nativesdk-cmake"
 
+TOOLCHAIN_TARGET_TASK += "\
+    nng-dev \
+    libcsp-dev \
+"
+
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
 IMAGE_INSTALL:append = " \
     leopard-udev-rules \

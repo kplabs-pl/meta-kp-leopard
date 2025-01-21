@@ -1,0 +1,12 @@
+&spi0 {
+    compatible = "kp,leopard-spi";
+    
+    irq-gpios = <&gpio 36 1>; // ACTIVE_LOW
+
+    slave@0 {
+        status = "okay";
+        spi-max-frequency = <20000000>;
+        compatible = "kp,leopard-spidev";
+        reg = <0>;
+    };
+};

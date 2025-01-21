@@ -1,0 +1,10 @@
+[Unit]
+Description=Communication hub setup script
+Requires=leopard-detect-pn.service
+After=leopard-detect-pn.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/opt/communication-hub.env
+ExecStart=mkdir -p $COMMUNICATION_HUB_RUNTIME_VARIABLE_DIR && \
+          mkdir -p $SERVICE_JOB_RUNNER_WORKING_DIRECTORY

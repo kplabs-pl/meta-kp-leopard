@@ -1,0 +1,1 @@
+KERNELS=="leopard-pn-id",SYMLINK+="leopard/gpio-pn-id"

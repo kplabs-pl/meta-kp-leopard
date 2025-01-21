@@ -10,6 +10,8 @@ DEPENDS += " \
     arm-trusted-firmware \
 "
 
+PROVIDES = "virtual/boot-bin"
+
 BIF_PARTITION_ATTR = "fsbl pmu atf device-tree u-boot"
 
 BIF_PARTITION_ATTR[fsbl]="bootloader, destination_cpu=a53-0"

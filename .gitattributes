@@ -1,1 +1,4 @@
-* text eol=lf
+communication_hub_spi binary
+service_filesystem binary
+service_job_runner binary
+

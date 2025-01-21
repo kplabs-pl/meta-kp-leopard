@@ -11,6 +11,8 @@ SRC_URI:append:leopard-dpu = " \
     file://dpu-qspi-controller.dtsi \
     file://dpu-sata-control.dtsi \
     file://dpu-ethernet.dtsi \
+    file://spi-slave.dtsi \
+    file://leopard-pn-id.dtsi \
 "
 
 SRC_URI:append:leopard-ebb = " \
@@ -31,6 +33,8 @@ EXTRA_OVERLAYS:append:leopard-dpu = " \
     dpu-qspi-controller.dtsi \
     dpu-sata-control.dtsi \
     dpu-ethernet.dtsi \
+    spi-slave.dtsi \
+    leopard-pn-id.dtsi \
 "
 
 EXTRA_OVERLAYS:append:leopard-ebb = " \
@@ -39,3 +43,5 @@ EXTRA_OVERLAYS:append:leopard-ebb = " \
     ebb-sata-control.dtsi \
     ebb-ethernet.dtsi \
 "
+
+YAML_ENABLE_DT_OVERLAY = "1"

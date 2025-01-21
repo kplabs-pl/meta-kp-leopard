@@ -1,0 +1,48 @@
+diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+index 15ea11ebcbe0..09138117d46b 100644
+--- a/drivers/spi/Kconfig
++++ b/drivers/spi/Kconfig
+@@ -222,6 +222,11 @@ config SPI_BUTTERFLY
+ 	  inexpensive battery powered microcontroller evaluation board.
+ 	  This same cable can be used to flash new firmware.
+ 
++config SPI_LEOPARD
++	tristate "Leopard SPI Slave controller"
++	help
++	  This selects the Leopard SPI slave controller.
++
+ config SPI_CADENCE
+ 	tristate "Cadence SPI controller"
+ 	help
+@@ -1133,6 +1138,11 @@ config SPI_MUX
+ #
+ comment "SPI Protocol Masters"
+ 
++config SPI_LEOPARD_SPIDEV
++	tristate "Leopard user mode SPI device driver support"
++	help
++	  This supports Leopard user mode SPI protocol drivers.
++
+ config SPI_SPIDEV
+ 	tristate "User mode SPI device driver support"
+ 	help
+diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
+index 4b34e855c841..269fcd8b614c 100644
+--- a/drivers/spi/Makefile
++++ b/drivers/spi/Makefile
+@@ -11,6 +11,7 @@ obj-$(CONFIG_SPI_MASTER)		+= spi.o
+ obj-$(CONFIG_SPI_MEM)			+= spi-mem.o
+ obj-$(CONFIG_SPI_MUX)			+= spi-mux.o
+ obj-$(CONFIG_SPI_SPIDEV)		+= spidev.o
++obj-$(CONFIG_SPI_LEOPARD_SPIDEV)		+= spidev-leopard.o
+ obj-$(CONFIG_SPI_LOOPBACK_TEST)		+= spi-loopback-test.o
+ 
+ # SPI master controller drivers (bus)
+@@ -33,6 +34,7 @@ obj-$(CONFIG_SPI_BCM63XX_HSSPI)		+= spi-bcm63xx-hsspi.o
+ obj-$(CONFIG_SPI_BCM_QSPI)		+= spi-iproc-qspi.o spi-brcmstb-qspi.o spi-bcm-qspi.o
+ obj-$(CONFIG_SPI_BITBANG)		+= spi-bitbang.o
+ obj-$(CONFIG_SPI_BUTTERFLY)		+= spi-butterfly.o
++obj-$(CONFIG_SPI_LEOPARD)		+= spi-leopard.o
+ obj-$(CONFIG_SPI_CADENCE)		+= spi-cadence.o
+ obj-$(CONFIG_SPI_CADENCE_QUADSPI)	+= spi-cadence-quadspi.o
+ obj-$(CONFIG_SPI_CADENCE_XSPI)		+= spi-cadence-xspi.o
