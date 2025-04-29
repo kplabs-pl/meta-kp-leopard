@@ -1,5 +1,4 @@
 &gem2 {
-    local-mac-address = [02 c0 f1 d7 fa 31];
     phy-handle = <&phy0>;
     mdio {
       phy0: phy@0 {

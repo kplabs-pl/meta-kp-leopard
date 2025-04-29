@@ -4,44 +4,46 @@ SRC_URI = " \
     file://si5338.dtsi \
     file://sata.dtsi \
     file://nand-controller.dtsi \
-    file://qspi-partitions.dtsi \
+    file://boot-flash-partitions.dtsi \
 "
 
 SRC_URI:append:leopard-dpu = " \
-    file://dpu-qspi-controller.dtsi \
+    file://dpu-boot-flash-controller.dtsi \
     file://dpu-sata-control.dtsi \
     file://dpu-ethernet.dtsi \
-    file://spi-slave.dtsi \
     file://leopard-pn-id.dtsi \
+    file://remove-spi.dtsi \
 "
 
 SRC_URI:append:leopard-ebb = " \
     file://fan-controller.dtsi \
-    file://ebb-qspi-controller.dtsi \
+    file://ebb-boot-flash-controller.dtsi \
     file://ebb-sata-control.dtsi \
-    file://ebb-ethernet.dtsi \
 "
 
 EXTRA_OVERLAYS:append = " \
     si5338.dtsi \
     sata.dtsi \
     nand-controller.dtsi \
-    qspi-partitions.dtsi \
+    boot-flash-partitions.dtsi \
 "
 
 EXTRA_OVERLAYS:append:leopard-dpu = " \
-    dpu-qspi-controller.dtsi \
+    dpu-boot-flash-controller.dtsi \
     dpu-sata-control.dtsi \
     dpu-ethernet.dtsi \
-    spi-slave.dtsi \
     leopard-pn-id.dtsi \
+    remove-spi.dtsi \
 "
 
 EXTRA_OVERLAYS:append:leopard-ebb = " \
     fan-controller.dtsi \
-    ebb-qspi-controller.dtsi \
+    ebb-boot-flash-controller.dtsi \
     ebb-sata-control.dtsi \
-    ebb-ethernet.dtsi \
+"
+
+EXTRA_DT_FILES:append:leopard-dpu = " \
+    overlay/leopard-spi-slave-overlay.dtsi \
 "
 
 YAML_ENABLE_DT_OVERLAY = "1"
