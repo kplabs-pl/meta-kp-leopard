@@ -54,8 +54,10 @@ FILES:${PN} += " \
 RDEPENDS:${PN} = " \
     libnsl2 \
     detect-pn \
+    leopard-spi-slave \
+    nng \
 "
 
-IMAGE_INSTALL:hubend = " \
+IMAGE_INSTALL:append = " \
     libnsl2 \
 "

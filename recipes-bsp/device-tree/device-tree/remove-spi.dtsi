@@ -1,0 +1,9 @@
+// Remove SPI0 node from the device tree, it is ment to be loaded in runtime
+/delete-node/ &spi0;
+
+// Fix the spi1 alias, which pointed to spi0 (which is now nonexistent)
+&{/} {
+    aliases {
+        spi1 = &spi1;
+    };
+};

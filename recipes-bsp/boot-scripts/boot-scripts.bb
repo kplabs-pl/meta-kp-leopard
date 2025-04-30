@@ -3,16 +3,17 @@ LICENSE = "CLOSED"
 SRC_URI = " \
     file://sd-boot.cmd \
     file://tftp-boot.cmd \
-    file://nand-linux0-boot.cmd \
+    file://nand-image0-boot.cmd \
+    file://tftp-boot-safe.cmd \
     file://nand-boot.cmd \
 "
 
 SRC_URI:append:leopard-ebb = " \
-    file://ebb-leopard-qspi-boot.cmd \
+    file://ebb-leopard-boot-flash.cmd \
 "
 
 SRC_URI:append:leopard-dpu = " \
-    file://dpu-leopard-qspi-boot.cmd \
+    file://dpu-leopard-boot-flash.cmd \
 "
 
 BOARD_NAME:leopard-ebb = "ebb"
@@ -23,12 +24,15 @@ S = "${WORKDIR}"
 
 inherit u-boot-script
 
+PROJECT_NAME[doc] = "Full name of the project. It is used to create the TFTP_ROOT variable."
+
 python __anonymous() {
     if d.getVar("PROJECT_NAME", True) in ["", None]:
         bb.fatal("PROJECT_NAME is not set, provide it in project configuration file (kas file)")
 }
 
 TFTP_ROOT ?= "${@'/${PROJECT_NAME}/' + '/'.join('${DEPLOY_DIR_IMAGE}'.split('/')[-5:])}"
+TFTP_ROOT[doc] = "Path to the root directory of the TFTP server. Default path is resolved from the DEPLOY_DIR_IMAGE variable."
 
 do_configure:prepend(){
     for script in ${S}/*.cmd; do

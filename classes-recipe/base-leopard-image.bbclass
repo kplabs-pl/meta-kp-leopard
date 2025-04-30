@@ -1,10 +1,11 @@
 SUMMARY = "Leopard Base image"
 LICENSE = "CLOSED"
 
-inherit core-image
+inherit core-image image-identification
 
 DEPENDS += " \
     device-tree \
+    os-release \
 "
 
 TOOLCHAIN_HOST_TASK += " nativesdk-cmake"
@@ -30,6 +31,7 @@ IMAGE_INSTALL:append = " \
     i2c-tools \
     stress-ng \
     smartmontools \
+    fpga-manager-script \
 "
 
 IMAGE_FSTYPES = "cpio.gz.u-boot ubi tar.gz"

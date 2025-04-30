@@ -5,6 +5,7 @@ set options {
     {project_name.arg   ""          "Project name"}
     {build_path.arg     ""          "Path to build folder"}
     {boot_scr.arg       ""          "boot scr name"}
+    {jtag_serial.arg    ""          "JTAG cable serial number"}
 }
 
 set usage "xsct leopard.tcl <arguments>"
@@ -18,16 +19,16 @@ proc proc_wait { timeout }  {
 }
 
 puts "Connecting to host $params(ip)"
-connect -host $params(ip) -port 3121
+connect -host $params(ip)
 
 # Show PMU MicroBlaze on JTAG chain
-targets -set -nocase -filter {name =~ "*PSU*"}
+targets -set -nocase -filter {jtag_cable_serial =~ "$params(jtag_serial)" && name =~ "*PSU*"}
 rst -system
 mwr 0xFFCA0038 0x1FF
 proc_wait 1
 
 # Download and run PMU
-targets -set -nocase -filter {name =~ "MicroBlaze PMU"}
+targets -set -nocase -filter {jtag_cable_serial =~ "$params(jtag_serial)" && name =~ "MicroBlaze PMU"}
 
 set pmu_firmware_path "$project_deploy_path/pmu-firmware-$params(project_name).elf"
 puts "Download PMU firmware: $pmu_firmware_path"
@@ -38,12 +39,15 @@ proc_wait 1
 # Download and run FSBL
 set fsbl_firmware_path "$project_deploy_path/fsbl-$params(project_name).elf"
 puts "Download FSBL firmware: $fsbl_firmware_path"
-targets -set -nocase -filter {name =~ "*A53*#0*"}
+targets -set -nocase -filter {jtag_cable_serial =~ "$params(jtag_serial)" && name =~ "*A53*#0*"}
 rst -processor -clear-registers
 dow $fsbl_firmware_path
 con
-# Chaged from 10 to 20 because when used in integration tests, FSBL was throwing "Memory write error".
-proc_wait 20
+
+# Such a long wait is sometimes required as FSBL was
+# throwing "Memory write error at 0x100000;  MMU fault at VA (...)".
+# TODO https://kplabs.atlassian.net/browse/LPS-532
+proc_wait 30
 
 # Download u-boot
 set u_boot_path "$project_deploy_path/u-boot-$params(project_name).elf"

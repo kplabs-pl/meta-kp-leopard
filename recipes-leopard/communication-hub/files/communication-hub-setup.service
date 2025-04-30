@@ -1,7 +1,9 @@
 [Unit]
 Description=Communication hub setup script
 Requires=leopard-detect-pn.service
+Requires=leopard-spi-slave.service
 After=leopard-detect-pn.service
+After=leopard-spi-slave.service
 
 [Service]
 Type=oneshot

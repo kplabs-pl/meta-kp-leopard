@@ -19,19 +19,19 @@
         #size-cells = <0x2>;
 
         partition@0 {
-            label = "linux0";
+            label = "image0";
             reg = <0x00000000 0x00000000 0x00000000 0x40000000>;
         };
         partition@1 {
-            label = "linux1";
+            label = "image1";
             reg = <0x00000000 0x40000000 0x00000000 0x40000000>;
         };
         partition@2 {
-            label = "linux2";
+            label = "image2";
             reg = <0x00000000 0x80000000 0x00000000 0x40000000>;
         };
         partition@3 {
-            label = "workspace";
+            label = "userdata";
             reg = <0x00000000 0xC0000000 0x00000000 0x40000000>;
         };
 

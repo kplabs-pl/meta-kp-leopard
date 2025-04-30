@@ -1,4 +1,4 @@
 
-ACTION=="add", SUBSYSTEM=="mtd", ATTR{name}=="workspace", RUN{program}+="/usr/sbin/ubiattach -p /dev/leopard/storage/workspace"
-ACTION=="add", SUBSYSTEM=="ubi", RUN{program}+="/bin/mkdir -p /nand", RUN{program}+="/usr/bin/systemd-mount --no-block --automount=yes --type=ubifs --collect /dev/leopard/storage/ubi/workspace/data /nand"
+ACTION=="add", SUBSYSTEM=="mtd", ATTR{name}=="userdata", RUN{program}+="/usr/sbin/ubiattach -p /dev/leopard/storage/userdata"
+ACTION=="add", SUBSYSTEM=="ubi", RUN{program}+="/bin/mkdir -p /nand", RUN{program}+="/usr/bin/systemd-mount --no-block --automount=yes --type=ubifs --collect /dev/leopard/storage/ubi/userdata/data /nand"
 ACTION=="remove", RUN+="/bin/rmdir /nand"
