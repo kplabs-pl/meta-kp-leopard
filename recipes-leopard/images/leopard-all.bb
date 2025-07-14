@@ -3,6 +3,9 @@ LICENSE = "CLOSED"
 inherit nopackages
 
 DEPENDS:append = "\
+    safe-image \
+    safe-image-fit \
+    nominal-image \
     virtual/fsbl \
     virtual/pmu-firmware \
     virtual/bootloader \
@@ -10,15 +13,8 @@ DEPENDS:append = "\
     device-tree \
     virtual/kernel \
     boot-scripts \
-    safe-image \
-    safe-image-fit \
     bootbin-common \
 "
 
-DEPENDS:append:leopard-dpu = "\
-    dpu-leopard \
-"
-
-DEPENDS:append:leopard-ebb = "\
-    ebb-leopard \
-"
+do_build[depends] = "nominal-image:do_image_complete"
+do_build[depends] = "safe-image:do_image_complete"

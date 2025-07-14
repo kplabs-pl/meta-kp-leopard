@@ -16,9 +16,6 @@ SRC_URI:append:leopard-dpu = " \
     file://dpu-leopard-boot-flash.cmd \
 "
 
-BOARD_NAME:leopard-ebb = "ebb"
-BOARD_NAME:leopard-dpu = "dpu"
-
 
 S = "${WORKDIR}"
 
@@ -37,7 +34,7 @@ TFTP_ROOT[doc] = "Path to the root directory of the TFTP server. Default path is
 do_configure:prepend(){
     for script in ${S}/*.cmd; do
         sed -i -e 's:@@TFTP_ROOT@@:${TFTP_ROOT}:g' $script
-        sed -i -e 's:@@BOARD_NAME@@:${BOARD_NAME}:g' $script
+        sed -i -e 's:@@MACHINE@@:${MACHINE}:g' $script
     done
 }
 
