@@ -13,9 +13,9 @@ if test -e ${devtype} ${devnum}:${distro_bootpart} /system.dtb; then
     fatload ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} system.dtb;
 fi
 
-if test -e ${devtype} ${devnum}:${distro_bootpart} /@@BOARD_NAME@@-leopard-leopard-@@BOARD_NAME@@.rootfs.cpio.gz.u-boot; then
-    echo "/@@BOARD_NAME@@-leopard-leopard-@@BOARD_NAME@@.rootfs.cpio.gz.u-boot found"
-    fatload ${devtype} ${devnum}:${distro_bootpart} ${ramdisk_addr_r} @@BOARD_NAME@@-leopard-leopard-@@BOARD_NAME@@.rootfs.cpio.gz.u-boot;
+if test -e ${devtype} ${devnum}:${distro_bootpart} /nominal-image-@@MACHINE@@.rootfs.cpio.gz.u-boot; then
+    echo "/nominal-image-@@MACHINE@@.rootfs.cpio.gz.u-boot found"
+    fatload ${devtype} ${devnum}:${distro_bootpart} ${ramdisk_addr_r} nominal-image-@@MACHINE@@.rootfs.cpio.gz.u-boot;
     booti ${kernel_addr_r} ${ramdisk_addr_r} ${fdt_addr_r}
     exit;
 fi

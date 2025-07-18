@@ -5,6 +5,7 @@ After=communication-hub-setup.service
 
 [Service]
 Type=simple
+Restart=on-failure
 EnvironmentFile=/etc/default/opt/communication-hub.env
 ExecStart=/usr/bin/service_job_runner --receive-address $COMM_HUB_BROADCAST_ADDRESS \
                                       --send-address $COMM_HUB_COLLECTOR_ADDRESS    \

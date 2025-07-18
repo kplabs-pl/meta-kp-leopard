@@ -13,4 +13,8 @@ SRC_URI = " \
     file://leopard-ubi-mtd-name \
 "
 
+do_install:append() {
+    install -m 0755 ${WORKDIR}/leopard-ubi-mtd-name ${D}/${sysconfdir}/udev/rules.d/leopard-ubi-mtd-name
+}
+
 FILES:${PN}:append = "${sysconfdir}/udev/rules.d/*"
