@@ -5,6 +5,7 @@ COMPATIBLE_MACHINE = "^(leopard-dpu)$"
 
 inherit systemd
 
+COMMUNICATION_HUB_VERSION = "4.1.0"
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN} = " \
     communication-hub-spi.service \
@@ -40,6 +41,22 @@ do_install() {
     install -m 0644 ${WORKDIR}/service-filesystem.service ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/service-job-runner.service ${D}${systemd_system_unitdir}
 }
+
+
+do_verify_version() {
+    for file in ${WORKDIR}/bin/communication_hub_spi \
+                ${WORKDIR}/bin/service_filesystem \
+                ${WORKDIR}/bin/service_job_runner; do
+        ${OBJCOPY} --dump-section .note.kplabs.version=${B}/actual_version $file
+        actual_version=$(cat ${B}/actual_version)
+        if [ $actual_version != ${COMMUNICATION_HUB_VERSION} ]; then
+            bberror "Version mismatch in ${file}: expected ${COMMUNICATION_HUB_VERSION}, found ${actual_version}"
+        fi
+    done
+}
+
+addtask verify_version after do_install before do_build
+
 
 FILES:${PN} += " \
     ${bindir}/communication_hub_spi \
