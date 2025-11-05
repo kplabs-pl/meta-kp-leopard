@@ -12,7 +12,7 @@ SRC_URI:append:leopard-dpu = " \
     file://dpu-sata-control.dtsi \
     file://dpu-ethernet.dtsi \
     file://leopard-pn-id.dtsi \
-    file://remove-spi.dtsi \
+    file://remove-spi0.dtsi \
 "
 
 SRC_URI:append:leopard-ebb = " \
@@ -33,7 +33,7 @@ EXTRA_OVERLAYS:append:leopard-dpu = " \
     dpu-sata-control.dtsi \
     dpu-ethernet.dtsi \
     leopard-pn-id.dtsi \
-    remove-spi.dtsi \
+    remove-spi0.dtsi \
 "
 
 EXTRA_OVERLAYS:append:leopard-ebb = " \

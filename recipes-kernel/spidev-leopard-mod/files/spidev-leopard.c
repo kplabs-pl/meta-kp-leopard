@@ -31,7 +31,6 @@
  * nodes, since there is no fixed association of minor numbers with any
  * particular SPI bus or device.
  */
-#define LEOPARD_SPIDEV_MAJOR			153	/* assigned */
 #define N_SPI_MINORS			32	/* ... up to 256 */
 
 static DECLARE_BITMAP(minors, N_SPI_MINORS);
@@ -73,6 +72,9 @@ struct leopard_spidev_data {
 
 static LIST_HEAD(device_list);
 static DEFINE_MUTEX(device_list_lock);
+
+/* This value is evaluated in _init() and used in _probe() */
+static signed leopard_major_number = 0;
 
 static unsigned bufsiz = 4096;
 module_param(bufsiz, uint, S_IRUGO);
@@ -571,7 +573,7 @@ static int leopard_spidev_probe(struct spi_device *spi)
     if (minor < N_SPI_MINORS) {
         struct device *dev;
 
-        leopard_spidev->devt = MKDEV(LEOPARD_SPIDEV_MAJOR, minor);
+        leopard_spidev->devt = MKDEV(leopard_major_number, minor);
         dev = device_create(leopard_spidev_class, &spi->dev, leopard_spidev->devt,
                     leopard_spidev, "leopard/spidev%d.%d",
                     spi->master->bus_num, spi_get_chipselect(spi, 0));
@@ -641,16 +643,17 @@ static int __init leopard_spidev_init(void)
      * that will key udev/mdev to add/remove /dev nodes.  Last, register
      * the driver which manages those device numbers.
      */
-    status = register_chrdev(LEOPARD_SPIDEV_MAJOR, "spi", &leopard_spidev_fops);
+    status = register_chrdev(0, "spi", &leopard_spidev_fops);
     if (status < 0) {
         pr_err("[spidev-leopard] unable to register character device\n");
         return status;
     }
 
+    leopard_major_number = status;
     leopard_spidev_class = class_create(THIS_MODULE, "leopard_spidev");
     if (IS_ERR(leopard_spidev_class)) {
         pr_err("[spidev-leopard] unable to create class\n");
-        unregister_chrdev(LEOPARD_SPIDEV_MAJOR, leopard_spidev_spi_driver.driver.name);
+        unregister_chrdev(0, leopard_spidev_spi_driver.driver.name);
         return PTR_ERR(leopard_spidev_class);
     }
 
@@ -658,7 +661,7 @@ static int __init leopard_spidev_init(void)
     if (status < 0) {
         pr_err("[spidev-leopard] unable to register driver\n");
         class_destroy(leopard_spidev_class);
-        unregister_chrdev(LEOPARD_SPIDEV_MAJOR, leopard_spidev_spi_driver.driver.name);
+        unregister_chrdev(0, leopard_spidev_spi_driver.driver.name);
     }
 
     return status;
@@ -668,7 +671,7 @@ static void __exit leopard_spidev_exit(void)
 {
     spi_unregister_driver(&leopard_spidev_spi_driver);
     class_destroy(leopard_spidev_class);
-    unregister_chrdev(LEOPARD_SPIDEV_MAJOR, leopard_spidev_spi_driver.driver.name);
+    unregister_chrdev(0, leopard_spidev_spi_driver.driver.name);
 }
 
 module_init(leopard_spidev_init);
