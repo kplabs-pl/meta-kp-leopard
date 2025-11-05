@@ -1,12 +1,12 @@
 LICENSE = "CLOSED"
 
-SRC_URI = "\
+SRC_URI = " \
     file://leopard-pn-id.rules \
     file://detect-pn.cpp \
     file://leopard-detect-pn.service \
 "
 
-DEPENDS = "\
+DEPENDS = " \
     libgpiod \
 "
 

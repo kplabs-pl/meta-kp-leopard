@@ -6,6 +6,6 @@
 # gio (from the sysroot) with, e.g., gmodule (from the host system). They may
 # be in a different versions which can break a build with, e.g., undefined
 # reference.
-EXTRA_OECONF:append = "\
+EXTRA_OECONF:append = " \
     --disable-gio \
 "

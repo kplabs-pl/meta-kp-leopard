@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "^(leopard-dpu)$"
 
 inherit systemd
 
-COMMUNICATION_HUB_VERSION = "4.1.0"
+COMMUNICATION_HUB_VERSION = "4.2.1"
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN} = " \
     communication-hub-spi.service \
@@ -13,7 +13,6 @@ SYSTEMD_SERVICE:${PN} = " \
     service-job-runner.service \
 "
 
-# TODO comm hub binaries are locally build in Release mode: https://kplabs.atlassian.net/browse/LPS-406
 SRC_URI = " \
     file://communication-hub.env \
     file://bin/communication_hub_spi \

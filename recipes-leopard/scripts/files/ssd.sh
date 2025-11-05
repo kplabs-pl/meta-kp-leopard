@@ -50,7 +50,7 @@ function _wait_until_directory_mounted {
 
         grep "/dev/" /proc/mounts | grep -qs $EXPECTED_DIR
         status=$?
-        
+
         if [ $status -eq 0 ]; then
             echo "$EXPECTED_DIR was mounted successfully"
             return 0
@@ -93,6 +93,11 @@ function _disable_ssd_disk {
 
     if [[ ! -e "/dev/ssd/$SSD_ID" ]]; then
         echo "Disk already disabled"
+
+        # In case of SEFI disk could be unmounted, but power to it is still being provided
+        # Here we just ensure it's disabled for sure
+        echo 0 > /sys/class/leds/ssd_$SSD_ID/brightness
+
         exit 0
     fi
 
@@ -107,6 +112,8 @@ function _disable_ssd_disk {
         echo "Disk failed to disable"
         exit 1
     fi
+
+    sleep 1  # Let ATA controller to enter standby mode, see https://kplabs.atlassian.net/browse/LPS-863
 
     echo 0 > /sys/class/leds/ssd_$SSD_ID/brightness
     echo "Disk disabled"

@@ -10,7 +10,7 @@ DEPENDS += " \
 
 TOOLCHAIN_HOST_TASK += " nativesdk-cmake"
 
-TOOLCHAIN_TARGET_TASK += "\
+TOOLCHAIN_TARGET_TASK += " \
     nng-dev \
     libcsp-dev \
 "
@@ -32,6 +32,9 @@ IMAGE_INSTALL:append = " \
     stress-ng \
     smartmontools \
     fpga-manager-script \
+    e2fsprogs-mke2fs \
+    hdparm \
+    parted \
 "
 
 IMAGE_FSTYPES = "cpio.gz.u-boot ubi tar.gz"

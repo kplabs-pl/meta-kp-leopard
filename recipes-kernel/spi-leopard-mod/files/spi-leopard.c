@@ -239,7 +239,6 @@ static irqreturn_t leopard_spi_irq(int irq, void *dev_id)
     irqreturn_t status;
     u32 intr_status;
     u32 intr_enabled;
-    int trans_cnt;
     int head;
     int tail;
     int to_write;
@@ -340,7 +339,7 @@ static int leopard_transfer_one(struct spi_controller *ctlr,
     int i;
 
     rx = transfer->rx_buf;
-    tx = transfer->tx_buf;
+    tx = (u8*)transfer->tx_buf;
 
     rx_len = rx[0] | (rx[1] << 8);
     tx_len = tx[0] | (tx[1] << 8);
@@ -448,7 +447,6 @@ static int leopard_spi_probe(struct platform_device *pdev)
     int ret = 0, irq;
     struct spi_controller *ctlr;
     struct leopard_spi *xspi;
-    u32 num_cs;
 
     ctlr = spi_alloc_slave(&pdev->dev, sizeof(*xspi));
     dev_info(&pdev->dev, "Leopard SPI Probe");
@@ -493,7 +491,7 @@ static int leopard_spi_probe(struct platform_device *pdev)
     }
 
     xspi->irq = devm_gpiod_get(&pdev->dev, "irq", GPIOD_OUT_LOW);
-    dev_dbg(&pdev->dev, "GPIO IRQ %d", xspi->irq);
+    dev_dbg(&pdev->dev, "GPIO IRQ %d", (int)xspi->irq);
     if (IS_ERR(xspi->irq)) {
         dev_err(&pdev->dev, "irq gpio not found.\n");
         ret = PTR_ERR(xspi->ref_clk);
@@ -566,10 +564,8 @@ remove_ctlr:
  * This function is called if a device is physically removed from the system or
  * if the driver module is being unloaded. It frees all resources allocated to
  * the device.
- *
- * Return:	0 on success and error value on error
  */
-static int leopard_spi_remove(struct platform_device *pdev)
+static void leopard_spi_remove(struct platform_device *pdev)
 {
     struct spi_controller *ctlr = platform_get_drvdata(pdev);
     struct leopard_spi *xspi = spi_controller_get_devdata(ctlr);
@@ -585,8 +581,6 @@ static int leopard_spi_remove(struct platform_device *pdev)
 
     kfree(xspi->txbuf.buf);
     kfree(xspi->rxbuf.buf);
-
-    return 0;
 }
 
 /**

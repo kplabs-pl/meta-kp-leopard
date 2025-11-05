@@ -12,7 +12,7 @@ SRC_URI:append:leopard-dpu = " \
     file://dpu-sata-control.dtsi \
     file://dpu-ethernet.dtsi \
     file://leopard-pn-id.dtsi \
-    file://remove-spi.dtsi \
+    file://remove-spi0.dtsi \
 "
 
 SRC_URI:append:leopard-ebb = " \
@@ -21,22 +21,22 @@ SRC_URI:append:leopard-ebb = " \
     file://ebb-sata-control.dtsi \
 "
 
-EXTRA_OVERLAYS:append = " \
+EXTRA_DT_INCLUDE_FILES:append = " \
     si5338.dtsi \
     sata.dtsi \
     nand-controller.dtsi \
     boot-flash-partitions.dtsi \
 "
 
-EXTRA_OVERLAYS:append:leopard-dpu = " \
+EXTRA_DT_INCLUDE_FILES:append:leopard-dpu = " \
     dpu-boot-flash-controller.dtsi \
     dpu-sata-control.dtsi \
     dpu-ethernet.dtsi \
     leopard-pn-id.dtsi \
-    remove-spi.dtsi \
+    remove-spi0.dtsi \
 "
 
-EXTRA_OVERLAYS:append:leopard-ebb = " \
+EXTRA_DT_INCLUDE_FILES:append:leopard-ebb = " \
     fan-controller.dtsi \
     ebb-boot-flash-controller.dtsi \
     ebb-sata-control.dtsi \

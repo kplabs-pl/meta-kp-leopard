@@ -2,14 +2,14 @@ LICENSE = "CLOSED"
 
 inherit nopackages
 
-DEPENDS:append = "\
+DEPENDS:append = " \
     safe-image \
     safe-image-fit \
     nominal-image \
     virtual/fsbl \
     virtual/pmu-firmware \
     virtual/bootloader \
-    arm-trusted-firmware \
+    virtual/arm-trusted-firmware \
     device-tree \
     virtual/kernel \
     boot-scripts \

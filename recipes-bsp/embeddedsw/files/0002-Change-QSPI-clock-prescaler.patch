@@ -1,6 +1,6 @@
-From cea4aca6234f674c995f9066b74ca3545a518b8f Mon Sep 17 00:00:00 2001
-From: Przemek Recha <precha@kplabs.pl>
-Date: Wed, 13 Mar 2024 09:46:09 +0000
+From 5fbd557daf5f2deb906bf6a61aea8287f0aab395 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Pawe=C5=82=20Klisz?= <pklisz@kplabs.pl>
+Date: Mon, 18 Aug 2025 12:29:06 +0000
 Subject: [PATCH] Change QSPI clock prescaler
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] Change QSPI clock prescaler
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_qspi.c b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_qspi.c
-index a28058f197..1fa8cd4769 100644
+index a28058f197..87f703f49b 100644
 --- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_qspi.c
 +++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_qspi.c
 @@ -980,7 +980,7 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
@@ -17,6 +17,6 @@ index a28058f197..1fa8cd4769 100644
  	 */
 -	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_8);
 +	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_32);
- 
+
  	if (Status != XFSBL_SUCCESS) {
  		UStatus = XFSBL_ERROR_QSPI_PRESCALER_CLK;

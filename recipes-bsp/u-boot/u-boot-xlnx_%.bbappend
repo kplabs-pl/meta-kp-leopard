@@ -8,7 +8,7 @@ SRC_URI:append = " \
     file://sfdp.cfg \
     file://version.cfg \
     file://enable-misc-init-r.cfg \
-    file://0001-Support-setting-MAC-address-based-on-PN-version-runn.patch \
+    file://${XILINX_RELEASE_VERSION}/0001-Support-setting-MAC-address-based-on-PN-version-runn.patch \
     file://nand_max_chips.cfg \
 "
 

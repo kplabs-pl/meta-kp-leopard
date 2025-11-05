@@ -1,6 +1,6 @@
 LICENSE = "MIT"
 
-SRC_URI = "\
+SRC_URI = " \
     git://github.com/libcsp/libcsp.git;protocol=https;branch=develop \
     file://LibcspConfig.cmake \
     file://autoconfig.h \
@@ -35,7 +35,7 @@ do_install() {
 
 ALLOW_EMPTY:${PN} = "1"
 
-FILES:${PN}-dev = "\
+FILES:${PN}-dev = " \
     /usr/src/libcsp/ \
     /usr/lib/cmake/libcsp/ \
 "

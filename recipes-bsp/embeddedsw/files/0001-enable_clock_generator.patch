@@ -1,6 +1,6 @@
-From da9a994926436a568edc47a85c9811dd6552a089 Mon Sep 17 00:00:00 2001
+From 5a3bff4e5b92dc88ef763d92bf5e870920614a6b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Pawe=C5=82=20Klisz?= <pklisz@kplabs.pl>
-Date: Tue, 19 Aug 2025 16:20:32 +0200
+Date: Wed, 27 Aug 2025 08:52:48 +0000
 Subject: [PATCH] Add support for SI5338 clock generator
 
 ---
@@ -8,23 +8,23 @@ Subject: [PATCH] Add support for SI5338 clock generator
  1 file changed, 23 insertions(+)
 
 diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
-index abf9b72f8e..089af77c27 100644
+index 4532ea9b86..22733c3c5b 100644
 --- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
 +++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
-@@ -36,6 +36,9 @@
- #include "xfsbl_main.h"
- #include "bspconfig.h"
- 
+@@ -41,6 +41,9 @@
+ #include "xfsbl_tpm.h"
+ #endif
+
 +#include "kp_zynqI2C.h"
 +#include "kp_clockGenerator.h"
 +
  /************************** Constant Definitions *****************************/
- 
+
  /**************************** Type Definitions *******************************/
-@@ -110,6 +113,26 @@ int main(void )
+@@ -115,6 +118,26 @@ int main(void )
  					 * Initialize the global timer and get the value
  					 */
- 
+
 +					/** Initialize clock generator for Zynq peripherals */
 +					if (zynqI2C_init() != XST_SUCCESS) {
 +						xil_printf("[SI5338] Failed to initialize I2C\n\r");
