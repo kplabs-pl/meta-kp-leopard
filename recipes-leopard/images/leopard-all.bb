@@ -9,7 +9,7 @@ DEPENDS:append = "\
     virtual/fsbl \
     virtual/pmu-firmware \
     virtual/bootloader \
-    arm-trusted-firmware \
+    virtual/arm-trusted-firmware \
     device-tree \
     virtual/kernel \
     boot-scripts \

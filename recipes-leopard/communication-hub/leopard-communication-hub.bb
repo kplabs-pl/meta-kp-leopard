@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "^(leopard-dpu)$"
 
 inherit systemd
 
-COMMUNICATION_HUB_VERSION = "4.1.0"
+COMMUNICATION_HUB_VERSION = "4.2.1"
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN} = " \
     communication-hub-spi.service \
