@@ -1,0 +1,21 @@
+From 356e82d5d6e4dca9fae5061c8d6460ba36860ea3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Pawe=C5=82=20Klisz?= <pklisz@kplabs.pl>
+Date: Mon, 27 Oct 2025 15:02:07 +0100
+Subject: [PATCH] Support setting MAC address based on PN version running
+
+---
+ arch/arm/mach-zynqmp/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/mach-zynqmp/Makefile b/arch/arm/mach-zynqmp/Makefile
+index ff426044797..2df20660366 100644
+--- a/arch/arm/mach-zynqmp/Makefile
++++ b/arch/arm/mach-zynqmp/Makefile
+@@ -3,6 +3,7 @@
+ # (C) Copyright 2014 - 2015 Xilinx, Inc.
+ # Michal Simek <michal.simek@amd.com>
+
++obj-y   += misc.o
+ obj-y	+= aes.o clk.o cpu.o
+ obj-$(CONFIG_MP)	+= mp.o
+ obj-$(CONFIG_XPL_BUILD) += spl.o handoff.o psu_spl_init.o
