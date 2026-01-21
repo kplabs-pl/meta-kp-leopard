@@ -1,0 +1,15 @@
+/ {
+    sata_control {
+        compatible = "gpio-leds";
+
+        ssd_a {
+            gpios = <&gpio 39 0>;
+            default-state = "off";
+        };
+
+        ssd_b {
+            gpios = <&gpio 44 0>;
+            default-state = "off";
+        };
+    };
+};

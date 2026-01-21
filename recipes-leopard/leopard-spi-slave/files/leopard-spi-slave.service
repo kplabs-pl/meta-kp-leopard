@@ -1,0 +1,12 @@
+[Unit]
+Description="Load spidev device tree overlay for Leopard SPI Slave"
+After=sys-kernel-config.mount
+Requires=sys-kernel-config.mount
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'mkdir -p /sys/kernel/config/device-tree/overlays/leopard-spi-slave && \
+                      cat /boot/devicetree/leopard-spi-slave-overlay.dtbo > /sys/kernel/config/device-tree/overlays/leopard-spi-slave/dtbo'
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,50 @@
+From 5a3bff4e5b92dc88ef763d92bf5e870920614a6b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Pawe=C5=82=20Klisz?= <pklisz@kplabs.pl>
+Date: Wed, 27 Aug 2025 08:52:48 +0000
+Subject: [PATCH] Add support for SI5338 clock generator
+
+---
+ lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
+index 4532ea9b86..22733c3c5b 100644
+--- a/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
++++ b/lib/sw_apps/zynqmp_fsbl/src/xfsbl_main.c
+@@ -41,6 +41,9 @@
+ #include "xfsbl_tpm.h"
+ #endif
+
++#include "kp_zynqI2C.h"
++#include "kp_clockGenerator.h"
++
+ /************************** Constant Definitions *****************************/
+
+ /**************************** Type Definitions *******************************/
+@@ -115,6 +118,26 @@ int main(void )
+ 					 * Initialize the global timer and get the value
+ 					 */
+
++					/** Initialize clock generator for Zynq peripherals */
++					if (zynqI2C_init() != XST_SUCCESS) {
++						xil_printf("[SI5338] Failed to initialize I2C\n\r");
++						break;
++					}
++					xil_printf("[SI5338] I2C initialized\n\r");
++
++					if (clockGenerator_loadConfig() != XST_SUCCESS)	{
++						xil_printf("[SI5338] Failed to load clock generator config\n\r");
++						break;
++					}
++
++					if (clockGenerator_enableAll() != XST_SUCCESS) {
++						xil_printf("[SI5338] Channels enable failed\n\r");
++						break;
++					}
++
++					xil_printf("[SI5338] Clock generator configured successfully\n\r");
++					xil_printf("[SI5338] done!\n\r");
++
+ 					FsblStage = XFSBL_STAGE2;
+ 				}
+ 			}break;

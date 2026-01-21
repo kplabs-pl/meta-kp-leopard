@@ -1,0 +1,40 @@
+/dts-v1/;
+/plugin/;
+
+#include "include/dt-bindings/power/xlnx-zynqmp-power.h"
+#include "include/dt-bindings/clock/xlnx-zynqmp-clk.h"
+#include "include/dt-bindings/gpio/gpio.h"
+
+&{/} {
+    axi {
+        spi@ff040000 {
+            compatible = "kp,leopard-spi";
+            status = "okay";
+
+            irq-gpios = <&gpio 36 GPIO_ACTIVE_LOW>;
+
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            // Options retrieved from xilinx-generated system-top.dts:
+            interrupt-parent = <&gic>;
+            interrupts = <0x00 0x13 0x04>;
+            reg = <0x00 0xff040000 0x00 0x1000>;
+            clock-names = "ref_clk", "pclk";
+            power-domains = <&zynqmp_firmware PD_SPI_0>;
+            clocks = <&zynqmp_clk SPI0_REF>, <&zynqmp_clk LPD_LSBUS>;
+            is-decoded-cs = <0x00>;
+            num-cs = <0x01>;
+
+            slave@0 {
+                #address-cells = <1>;
+                #size-cells = <0>;
+
+                status = "okay";
+                spi-max-frequency = <20000000>;
+                compatible = "kp,leopard-spidev";
+                reg = <0>;
+            };
+        };
+    };
+};

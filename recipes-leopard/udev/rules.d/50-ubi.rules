@@ -1,0 +1,6 @@
+# For ubi[0-9]+ devices (the UBI device describing MTD device) create symlinks in /dev/leopard/storage/ubi_dev/<mtd-parition-name>
+ACTION=="add",SUBSYSTEM=="ubi",KERNEL=="ubi[0-9]",PROGRAM="/etc/udev/rules.d/leopard-ubi-mtd-name $devpath",SYMLINK+="leopard/storage/ubi_dev/$result",GOTO="ubi_device_end"
+# For ubi[0-9]+_[0-9]+ devices (UBI volumes) create symlinks in /dev/leopard/storage/ubi/<mtd-parition-name>/<ubi-volume-name>
+ACTION=="add",SUBSYSTEM=="ubi",KERNEL=="ubi*_*",PROGRAM="/etc/udev/rules.d/leopard-ubi-mtd-name $devpath/..",SYMLINK+="leopard/storage/ubi/$result/$attr{name}"
+
+LABEL="ubi_device_end"

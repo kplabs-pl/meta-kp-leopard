@@ -1,0 +1,15 @@
+[Unit]
+Description=Communication Hub
+Requires=communication-hub-setup.service
+After=communication-hub-setup.service
+
+[Service]
+Type=simple
+Restart=on-failure
+EnvironmentFile=/etc/default/opt/communication-hub.env
+ExecStart=/usr/bin/communication_hub_spi --broadcast-address $COMM_HUB_BROADCAST_ADDRESS  \
+                                         --collector-address $COMM_HUB_COLLECTOR_ADDRESS \
+                                         --spi-device $COMM_HUB_SPI_DEVICE
+
+[Install]
+WantedBy=multi-user.target

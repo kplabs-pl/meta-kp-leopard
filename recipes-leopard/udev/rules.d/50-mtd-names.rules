@@ -1,0 +1,2 @@
+ACTION=="add",SUBSYSTEM=="mtd",ATTR{name}!="",SYMLINK+="leopard/storage/$attr{name}"
+ACTION=="add",SUBSYSTEM=="block",SUBSYSTEMS=="mtd",ATTRS{name}!="",SYMLINK+="leopard/storage/$attr{name}-block"

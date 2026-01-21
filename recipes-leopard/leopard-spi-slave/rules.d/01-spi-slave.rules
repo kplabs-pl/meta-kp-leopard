@@ -1,0 +1,1 @@
+SUBSYSTEM=="leopard_spidev",SYMLINK+="leopard/spi_slave"

@@ -1,0 +1,14 @@
+KERNEL=="sd?", SUBSYSTEM=="block", DEVPATH=="*ahci/ata1/host*", SYMLINK+="ssd/a", ENV{ssd_disk}="a", GOTO="END_20_SSD_DEVICES"
+KERNEL=="sd?*", SUBSYSTEM=="block", DEVPATH=="*ahci/ata1/host*", SYMLINK+="ssd/a%n", ENV{ssd_disk}="a", ENV{ssd_partition}="%n", ENV{ssd_mount}="y"
+
+KERNEL=="sd?", SUBSYSTEM=="block", DEVPATH=="*ahci/ata2/host*", SYMLINK+="ssd/b", ENV{ssd_disk}="b", GOTO="END_20_SSD_DEVICES"
+KERNEL=="sd?*", SUBSYSTEM=="block", DEVPATH=="*ahci/ata2/host*", SYMLINK+="ssd/b%n", ENV{ssd_disk}="b", ENV{ssd_partition}="%n", ENV{ssd_mount}="y"
+
+LABEL="END_20_SSD_DEVICES"
+
+ENV{ssd_mount}!="y", GOTO="END_20_SSD_MOUNT"
+
+ACTION=="add", RUN{program}+="/bin/mkdir -p /mnt/ssd/%E{ssd_disk}%E{ssd_partition}", RUN{program}+="/usr/bin/systemd-mount --no-block --automount=yes --collect /dev/ssd/%E{ssd_disk}%E{ssd_partition} /mnt/ssd/%E{ssd_disk}%E{ssd_partition}"
+ACTION=="remove", RUN+="/bin/rmdir /mnt/ssd/%E{ssd_disk}%E{ssd_partition}"
+
+LABEL="END_20_SSD_MOUNT"
