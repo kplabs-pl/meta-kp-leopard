@@ -1,0 +1,8 @@
+&{/} {
+    leopard-pn-id {
+        compatible = "kplabs,gpio-aggregator";
+
+        gpios = <&gpio 30 0>;
+        gpio-line-names = "leopard-pn-id";
+    };
+};

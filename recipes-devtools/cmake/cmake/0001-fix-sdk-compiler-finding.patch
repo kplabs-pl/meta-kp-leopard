@@ -1,0 +1,28 @@
+From efd5c4ae2975a0f4de3c7f7ecb02061e8f6f40eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Pawe=C5=82=20Klisz?= <pklisz@kplabs.pl>
+Date: Mon, 26 Feb 2024 11:14:18 +0000
+Subject: [PATCH] Fix SDK windows toolchain to find correct c/cxx compilers
+ with also with .exe extensions
+Upstream-Status: Pending
+---
+ ./SDKToolchainConfig.cmake.template             | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/SDKToolchainConfig.cmake.template b/SDKToolchainConfig.cmake.template
+index c69569a843..b5cf90d373 100644
+--- a/SDKToolchainConfig.cmake.template
++++ b/SDKToolchainConfig.cmake.template
+@@ -8,8 +8,8 @@
+ set(CMAKE_SYSTEM_NAME       Linux)
+ set(CMAKE_SYSTEM_PROCESSOR "@OECORE_TARGET_ARCH")
+
+-set(CMAKE_C_COMPILER    "${GCC_DIR}/${TOOLCHAIN_NAME}-gcc")
+-set(CMAKE_CXX_COMPILER  "${GCC_DIR}/${TOOLCHAIN_NAME}-g++")
++find_program(CMAKE_C_COMPILER    "${GCC_DIR}/${TOOLCHAIN_NAME}-gcc")
++find_program(CMAKE_CXX_COMPILER  "${GCC_DIR}/${TOOLCHAIN_NAME}-g++")
+
+ set(ARCH_FLAGS          "@OECORE_TUNE_CCARGS")
+ set(CMAKE_C_FLAGS       "${ARCH_FLAGS}" CACHE STRING "" FORCE )
+--
+2.34.1
+

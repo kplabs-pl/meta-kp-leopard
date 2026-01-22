@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo 1 >> /sys/class/hwmon/hwmon0/fan1_enable
+echo 2 >> /sys/class/hwmon/hwmon0/pwm1_enable
+echo 1 >> /sys/class/hwmon/hwmon0/pwm1_auto_channels_temp
