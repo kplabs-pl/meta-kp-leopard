@@ -1,0 +1,16 @@
+&qspi {
+    boot_flash: flash@0 {
+        partition@boot-bin {
+            label = "boot-bin";
+            reg = <0x0 0x00380000>; // 3.5MB
+        };
+        partition@boot-scr {
+            label = "boot-scr";
+            reg = <0x00380000 0x00080000>; // 0.5MB
+        };
+        partition@safe-image {
+            label = "safe-image";
+            reg = <0x00400000 0x03C00000>; // 60MB
+        };
+    };
+};

@@ -1,0 +1,21 @@
+From cda156a992440ee27fc104576503240fdcf8128d Mon Sep 17 00:00:00 2001
+From: Maciej Nowak <mnowak@kplabs.pl>
+Date: Mon, 25 Nov 2024 17:09:00 +0100
+Subject: [PATCH] add kplabs,gpio-aggregator
+
+---
+ drivers/gpio/gpio-aggregator.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpio/gpio-aggregator.c b/drivers/gpio/gpio-aggregator.c
+index 0cb2664085cf..8802f205da71 100644
+--- a/drivers/gpio/gpio-aggregator.c
++++ b/drivers/gpio/gpio-aggregator.c
+@@ -504,6 +504,7 @@ static const struct of_device_id gpio_aggregator_dt_ids[] = {
+ 	 * Add GPIO-operated devices controlled from userspace below,
+ 	 * or use "driver_override" in sysfs
+ 	 */
++	{ .compatible = "kplabs,gpio-aggregator", .data = NULL },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, gpio_aggregator_dt_ids);

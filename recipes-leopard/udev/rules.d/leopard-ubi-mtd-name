@@ -1,0 +1,7 @@
+#!/bin/sh
+UBI_DEVPATH=$1
+MTD_NUM=$(cat /sys$UBI_DEVPATH/mtd_num)
+MTD_PATH=$(udevadm info -q path /dev/mtd$MTD_NUM)
+MTD_LABEL=$(cat /sys$MTD_PATH/name)
+
+echo $MTD_LABEL

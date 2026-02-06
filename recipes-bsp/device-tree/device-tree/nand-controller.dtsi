@@ -1,0 +1,40 @@
+&nand0 {
+    status = "okay";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    arasan,has-mdma;
+
+    nand-ecc-mode = "hw";
+    nand-ecc-algo = "bch";
+    nand-rb = <0x0>;
+
+    nand_flash: nand@0 {
+        reg = <0x0>;
+        nand-ecc-mode = "hw";
+        nand-ecc-algo = "bch";
+        nand-rb = <0x0>;
+        label = "nand";
+
+        #address-cells = <0x2>;
+        #size-cells = <0x2>;
+
+        partition@0 {
+            label = "image0";
+            reg = <0x00000000 0x00000000 0x00000000 0x40000000>;
+        };
+        partition@1 {
+            label = "image1";
+            reg = <0x00000000 0x40000000 0x00000000 0x40000000>;
+        };
+        partition@2 {
+            label = "image2";
+            reg = <0x00000000 0x80000000 0x00000000 0x40000000>;
+        };
+        partition@3 {
+            label = "userdata";
+            reg = <0x00000000 0xC0000000 0x00000000 0x40000000>;
+        };
+
+    };
+
+};

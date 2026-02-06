@@ -1,0 +1,25 @@
+&sata {
+    #address-cells = <0x1>;
+    #size-cells = <0x0>;
+
+    ceva,p0-burst-params = <0x13084a06>;
+    ceva,p0-cominit-params = <0x18401828>;
+    ceva,p0-comwake-params = <0x614080e>;
+    ceva,p0-retry-params = <0x96a43ffc>;
+    ceva,p1-burst-params = <0x13084a06>;
+    ceva,p1-cominit-params = <0x18401828>;
+    ceva,p1-comwake-params = <0x614080e>;
+    ceva,p1-retry-params = <0x96a43ffc>;
+
+    sata-port@0 {
+        reg = <0>;
+        phys = <&psgtr 0 1 0 0>;
+        phy-names = "sata-phy-0";
+    };
+
+    sata-port@1 {
+        reg = <1>;
+        phys = <&psgtr 1 1 1 0>;
+        phy-names = "sata-phy-1";
+    };
+};
