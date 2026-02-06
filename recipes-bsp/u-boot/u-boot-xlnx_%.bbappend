@@ -19,3 +19,5 @@ LOCALVERSION := "-build-${@bb.process.run('git rev-parse HEAD || echo unknown')[
 do_configure:append(){
     sed -i -e "s:@@LOCALVERSION@@:${LOCALVERSION}:" ${B}/.config
 }
+
+EXTRA_OEMAKE:append = " KCFLAGS=' -DCONFIG_TFTP_FILE_NAME_MAX_LEN=256'"
