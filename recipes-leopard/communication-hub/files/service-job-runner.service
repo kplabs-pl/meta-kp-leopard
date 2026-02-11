@@ -1,0 +1,17 @@
+[Unit]
+Description=Communication hub's job runner service
+Requires=communication-hub-setup.service
+After=communication-hub-setup.service
+
+[Service]
+Type=simple
+Restart=on-failure
+EnvironmentFile=/etc/default/opt/communication-hub.env
+ExecStart=/usr/bin/service_job_runner --receive-address $COMM_HUB_BROADCAST_ADDRESS \
+                                      --send-address $COMM_HUB_COLLECTOR_ADDRESS    \
+                                      --csp-address $SERVICE_JOB_RUNNER_CSP_ADDRESS \
+                                      --csp-netmask-file $SERVICE_CSP_NETMASK_FILE \
+                                      --working-directory $SERVICE_JOB_RUNNER_WORKING_DIRECTORY
+
+[Install]
+WantedBy=multi-user.target
