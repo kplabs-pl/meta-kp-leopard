@@ -9,7 +9,7 @@ This layer provides boot firmware and linux image for KP Labs' Leopard DPU and L
 - ``leopard-ebb`` - Leopard EBB
 
 
-## Available Images
+## Available Targets
 
 - ``leopard-all`` - builds all required boot firmware and software to run on Leopard EBB/DPU (depends on provided machine)
 
