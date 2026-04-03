@@ -16,5 +16,7 @@ DEPENDS:append = " \
     bootbin-common \
 "
 
-do_build[depends] = "nominal-image:do_image_complete"
-do_build[depends] = "safe-image:do_image_complete"
+do_build[depends] = " \
+    nominal-image:do_image_complete \
+    safe-image:do_image_complete \
+"
