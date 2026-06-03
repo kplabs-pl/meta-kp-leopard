@@ -5,7 +5,7 @@ COMPATIBLE_MACHINE = "^(leopard-dpu)$"
 
 inherit systemd
 
-COMMUNICATION_HUB_VERSION = "4.2.1"
+COMMUNICATION_HUB_VERSION = "7.5.0"
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN} = " \
     communication-hub-spi.service \
@@ -13,8 +13,8 @@ SYSTEMD_SERVICE:${PN} = " \
     service-job-runner.service \
 "
 
+
 SRC_URI = " \
-    file://communication-hub.env \
     file://bin/communication_hub_spi \
     file://bin/service_filesystem \
     file://bin/service_job_runner \
@@ -22,8 +22,20 @@ SRC_URI = " \
     file://communication-hub-setup.service \
     file://service-filesystem.service \
     file://service-job-runner.service \
+    file://generate_env.py \
 "
 
+inherit python3native
+
+DEPENDS += " \
+    leopard-option-sheet \
+"
+
+do_generate_env() {
+    nativepython3 ${WORKDIR}/generate_env.py ${RECIPE_SYSROOT}/etc/leopard/option-sheet.toml > ${WORKDIR}/communication-hub.env
+}
+
+addtask generate_env before do_compile after do_configure
 
 do_install() {
     install -d ${D}/etc/default/opt
@@ -48,6 +60,7 @@ do_verify_version() {
                 ${WORKDIR}/bin/service_job_runner; do
         ${OBJCOPY} --dump-section .note.kplabs.version=${B}/actual_version $file
         actual_version=$(cat ${B}/actual_version)
+        echo "${file} version: ${actual_version}"
         if [ $actual_version != ${COMMUNICATION_HUB_VERSION} ]; then
             bberror "Version mismatch in ${file}: expected ${COMMUNICATION_HUB_VERSION}, found ${actual_version}"
         fi

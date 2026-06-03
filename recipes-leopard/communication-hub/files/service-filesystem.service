@@ -10,7 +10,10 @@ EnvironmentFile=/etc/default/opt/communication-hub.env
 ExecStart=/usr/bin/service_filesystem --receive-address $COMM_HUB_BROADCAST_ADDRESS \
                                       --send-address $COMM_HUB_COLLECTOR_ADDRESS    \
                                       --csp-address $SERVICE_FILESYSTEM_CSP_ADDRESS \
-                                      --csp-netmask-file $SERVICE_CSP_NETMASK_FILE
+                                      --csp-netmask-file $SERVICE_CSP_NETMASK_FILE \
+                                      --csp-netmask-length $SERVICE_CSP_NETMASK_LENGTH \
+                                      --csp-version $SERVICE_CSP_VERSION \
+                                      --notify-to $SERVICE_NOTIFY_TO
 
 [Install]
 WantedBy=multi-user.target
