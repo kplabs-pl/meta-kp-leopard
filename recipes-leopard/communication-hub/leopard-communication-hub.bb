@@ -25,6 +25,13 @@ SRC_URI = " \
     file://generate_env.py \
 "
 
+# Monitor checksums of following files
+do_fetch[file-checksums] += " \
+    ${THISDIR}/files/bin/communication_hub_spi:True \
+    ${THISDIR}/files/bin/service_filesystem:True \
+    ${THISDIR}/files/bin/service_job_runner:True \
+"
+
 inherit python3native
 
 DEPENDS += " \
