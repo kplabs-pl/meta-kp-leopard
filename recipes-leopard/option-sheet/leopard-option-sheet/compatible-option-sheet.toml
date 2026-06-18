@@ -1,0 +1,21 @@
+[leopard]
+version = 1
+serial_number = 9999
+can_oscillator_frequency = 25000000
+
+[leopard.interface]
+csp_version = 2
+nominal = "can_a"
+
+[leopard.interface.can_a]
+sample_point = 75
+speed = 961000
+csp_address = 10
+csp_netmask = 11
+
+[leopard.interface.can_a.override]
+timing_configuration = 10240
+
+[leopard.interface.processing_node]
+csp_address = 128
+csp_netmask = 7

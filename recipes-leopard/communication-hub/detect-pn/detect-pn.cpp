@@ -66,7 +66,11 @@ static void WriteProcessingNodeId(FileHandle handle, ProcessingNode node)
 
 static void WriteProcessingNodeNetmask(FileHandle handle, ProcessingNode node)
 {
-    std::uint16_t netmask = node == ProcessingNode::Node1 ? 0x0080 : 0x0100;
+    static constexpr std::uint16_t NetmaskPN1 = LEOPARD_NETWORK_ADDRESS_PN1;
+    static constexpr std::uint16_t NetmaskPN2 = 0x0100; // hardcoded for compatibility
+
+    std::uint16_t netmask = node == ProcessingNode::Node1 ? NetmaskPN1 : NetmaskPN2;
+
     fwrite(reinterpret_cast<const char*>(&netmask), 1, sizeof(netmask), handle.get());
 }
 
