@@ -39,3 +39,5 @@ FILES:${PN}-dev = " \
     /usr/src/libcsp/ \
     /usr/lib/cmake/libcsp/ \
 "
+
+SYSROOT_DIRS += "${prefix}/src"
