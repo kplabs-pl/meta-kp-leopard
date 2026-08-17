@@ -1,0 +1,5 @@
+[Match]
+MACAddress=02:C0:F1:D7:FA:31
+
+[Link]
+Name=pn_rgmii

@@ -35,6 +35,7 @@ IMAGE_INSTALL:append = " \
     e2fsprogs-mke2fs \
     hdparm \
     parted \
+    static-eth-interface-name \
 "
 
 IMAGE_FSTYPES = "cpio.gz.u-boot ubi tar.gz"
