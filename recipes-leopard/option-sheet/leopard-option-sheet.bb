@@ -19,3 +19,6 @@ do_install() {
 addtask do_deploy before do_build after do_compile
 
 SYSROOT_DIRS += "${sysconfdir}"
+
+do_deploy[file-checksums] += "${LEOPARD_OPTION_SHEET}:True"
+do_install[file-checksums] += "${LEOPARD_OPTION_SHEET}:True"
